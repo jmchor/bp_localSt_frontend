@@ -25,23 +25,11 @@ const AboutContainer = styled.div`
 	}
 `;
 
-const CHECK_AUTHENTICATION = graphql(`
-	query CheckAuthentication {
-		checkAuthentication {
-			cookieIsPresent
-		}
-	}
-`);
-
 function About() {
-	const [checkAuth, { data, error, loading }] = useLazyQuery(CHECK_AUTHENTICATION);
-
-	console.log(data, error, loading);
 	return (
 		<AboutContainer>
 			<h1>This is Boilerplate.</h1>
 
-			<button onClick={() => checkAuth()}> Check Auth </button>
 			<p>
 				<br />
 			</p>

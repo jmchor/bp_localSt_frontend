@@ -4,7 +4,7 @@ import { useAuth } from '../auth';
 
 export const Route = createFileRoute('/_layout-withAuth')({
 	loader: ({ context }) => {
-		if (!context.auth.cookieLoading && !context.auth.isLoggedIn) {
+		if (!context.auth.isLoggedIn) {
 			throw redirect({
 				to: '/login',
 			});

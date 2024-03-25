@@ -31,12 +31,12 @@ function Navbar() {
 						return <SubMenu item={item} key={item.title} />;
 					})}
 				</Subbar>
-				{!auth.isLoggedIn ? (
+				{!auth.isContextAuthenticated ? (
 					<NavigationButton onClick={() => navigate({ to: '/login' })}>Sign In</NavigationButton>
 				) : (
 					<NavigationButton
 						onClick={() => {
-							auth.setIsLoggingOut(true);
+							auth.logout();
 							navigate({
 								to: '/login',
 							});

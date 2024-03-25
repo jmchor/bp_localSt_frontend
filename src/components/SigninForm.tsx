@@ -18,9 +18,9 @@ const LOGIN = graphql(`
 `);
 
 const SigninForm: React.FC = () => {
-	const [login, { loading, error }] = useMutation(LOGIN);
+	const [loginMutation, { loading, error }] = useMutation(LOGIN);
 	const navigate = useNavigate();
-	const { setIsLoggedIn } = useAuth();
+	const { login, isContextAuthenticated } = useAuth();
 
 	const [formData, setFormData] = useState({
 		input: '',
@@ -38,16 +38,15 @@ const SigninForm: React.FC = () => {
 	const handleLogin = async (e: React.FormEvent) => {
 		e.preventDefault();
 		try {
-			const { data } = await login({
+			const { data } = await loginMutation({
 				variables: {
 					credentials: formData,
 				},
 			});
 
-			if (data?.login?.isAuthenticated === true) {
-				flushSync(() => {
-					setIsLoggedIn(true);
-				});
+			login(data?.login?.value);
+
+			if (data?.login?.isAuthenticated) {
 				navigate({ to: '/home' });
 			}
 		} catch (error) {
