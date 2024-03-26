@@ -20,29 +20,31 @@ const ProjectList = ({ project }: { project: Project }) => {
 	const handleExpand = () => {
 		setIsExpanded(!isExpanded);
 	};
-	return (
-		<ListStyles>
-			<PLFlexRow>
-				<div>
-					<h3>{project?.title}</h3>
-				</div>
-				<ImageRow>
-					<StackImages project={project as ProjectForImages} />
-				</ImageRow>
-				<Button onClick={handleExpand}>
-					{isExpanded ? <BsCaretUpSquare color='black' /> : <BsCaretDownSquare color='black' />}
-				</Button>
-				<Button onClick={() => navigate({ to: `/projects/${project?._id}` as string })}>
-					<BsBoxArrowInUpRight color='black' />
-				</Button>
-			</PLFlexRow>
-			{isExpanded && (
-				<Description>
-					<p>{project?.description}</p>
-				</Description>
-			)}
-			<hr />
-		</ListStyles>
-	);
+	if (project) {
+		return (
+			<ListStyles>
+				<PLFlexRow>
+					<div>
+						<h3>{project.title}</h3>
+					</div>
+					<ImageRow>
+						<StackImages project={project as ProjectForImages} />
+					</ImageRow>
+					<Button onClick={handleExpand}>
+						{isExpanded ? <BsCaretUpSquare color='black' /> : <BsCaretDownSquare color='black' />}
+					</Button>
+					<Button onClick={() => navigate({ to: `/projects/${project._id}` as string })}>
+						<BsBoxArrowInUpRight color='black' />
+					</Button>
+				</PLFlexRow>
+				{isExpanded && (
+					<Description>
+						<p>{project.description}</p>
+					</Description>
+				)}
+				<hr />
+			</ListStyles>
+		);
+	}
 };
 export default ProjectList;
